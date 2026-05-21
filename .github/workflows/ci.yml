@@ -1,0 +1,64 @@
+name: Static Code Review
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  static-analysis:
+    runs-on: ubuntu-latest
+
+    # ¡Eliminamos por completo la sección 'services' de MySQL! 🚀
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          # Cambiamos pdo_mysql por pdo_sqlite
+          extensions: mbstring, intl, pdo_sqlite
+          coverage: none
+          tools: composer
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --prefer-dist --no-interaction
+
+      - name: Set up application environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      # ---------- Run Migrations (En SQLite Virtual) ----------
+      - name: Run database migrations
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ":memory:"
+        run: php artisan migrate --force
+
+      # ---------- [REQ 1] Run Tests ----------
+      - name: Run tests
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ":memory:"
+        run: php artisan test
+
+      # ---------- [REQ 2] Laravel Pint (code style) ----------
+      - name: Run Laravel Pint
+        run: vendor/bin/pint --test
+
+      # ---------- [REQ 3] PHPStan / Larastan ----------
+      - name: Run PHPStan (Larastan)
+        run: vendor/bin/phpstan analyse --configuration=phpstan.neon --memory-limit=512M
