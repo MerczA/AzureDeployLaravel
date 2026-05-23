@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase; 
 use App\Services\SecurityAuditService;
 use InvalidArgumentException;
 
@@ -13,7 +13,6 @@ class SecurityAuditServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Inicializamos nuestro servicio antes de cada prueba
         $this->service = new SecurityAuditService();
     }
 
