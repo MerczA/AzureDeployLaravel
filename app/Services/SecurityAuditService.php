@@ -9,7 +9,7 @@ class SecurityAuditService
     /**
      * Analiza un payload de entrada para detectar posibles riesgos de seguridad.
      *
-     * @param array<string, mixed> $payload
+     * @param  array<string, mixed>  $payload
      * @return array<string, mixed>
      */
     public function analyzePayload(array $payload): array
