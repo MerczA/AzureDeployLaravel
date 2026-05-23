@@ -2,53 +2,54 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase; 
+use Tests\TestCase;
 use App\Services\SecurityAuditService;
 use InvalidArgumentException;
 
 class SecurityAuditServiceTest extends TestCase
 {
-    private SecurityAuditService $service;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->service = new SecurityAuditService();
-    }
-
-    /** @test */
+    /**
+     * @test
+     */
     public function detecta_un_payload_completamente_seguro(): void
     {
+        $service = new SecurityAuditService();
         $payload = [
             'source' => 'FormularioLogin',
             'data' => 'usuario_comun'
         ];
 
-        $result = $this->service->analyzePayload($payload);
+        $result = $service->analyzePayload($payload);
 
-        $this->assertEquals('safe', $result['status']);
-        $this->assertEquals(0, $result['risk_score']);
+        $this->assertSame('safe', $result['status']);
+        $this->assertSame(0, $result['risk_score']);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function detecta_un_ataque_malicioso_y_eleva_el_riesgo(): void
     {
+        $service = new SecurityAuditService();
         $payload = [
             'source' => 'CajaBusqueda',
             'data' => "1' OR '1'='1"
         ];
 
-        $result = $this->service->analyzePayload($payload);
+        $result = $service->analyzePayload($payload);
 
-        $this->assertEquals('warning', $result['status']);
+        $this->assertSame('warning', $result['status']);
         $this->assertContains('Posible intento de SQL Injection', $result['flags']);
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function lanza_error_si_faltan_datos_obligatorios(): void
     {
+        $service = new SecurityAuditService();
         $this->expectException(InvalidArgumentException::class);
         
-        $this->service->analyzePayload([]);
+        $service->analyzePayload([]);
     }
 }
