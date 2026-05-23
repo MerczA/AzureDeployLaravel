@@ -7,5 +7,6 @@ class OperationController extends Controller
     public function calculatePercentage(float $amount, float $percentage): float
     {
         return ($amount * $percentage) / 100; // Comentario de prueba para verificar que todo este bien con el deploy
+        // Otro comentario de prueba
     }
 }
