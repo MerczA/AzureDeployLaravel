@@ -14,13 +14,13 @@ class SecurityAuditService
      */
     public function analyzePayload(array $payload): array
     {
-        if (!isset($payload['source']) || !isset($payload['data'])) {
+        if (! isset($payload['source']) || ! isset($payload['data'])) {
             throw new InvalidArgumentException('El payload debe contener "source" y "data".');
         }
 
         $source = is_string($payload['source']) ? $payload['source'] : 'Unknown';
         $dataToCheck = is_array($payload['data']) ? (string) json_encode($payload['data']) : (string) $payload['data'];
-        
+
         $riskScore = 0;
         $flags = [];
 

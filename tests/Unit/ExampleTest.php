@@ -2,9 +2,9 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
 use App\Services\SecurityAuditService;
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase
 {
@@ -30,10 +30,10 @@ class ExampleTest extends TestCase
      */
     public function detecta_un_payload_completamente_seguro(): void
     {
-        $service = new SecurityAuditService();
+        $service = new SecurityAuditService;
         $payload = [
             'source' => 'FormularioLogin',
-            'data' => 'usuario_comun'
+            'data' => 'usuario_comun',
         ];
 
         $result = $service->analyzePayload($payload);
@@ -47,10 +47,10 @@ class ExampleTest extends TestCase
      */
     public function detecta_un_ataque_malicioso_y_eleva_el_riesgo(): void
     {
-        $service = new SecurityAuditService();
+        $service = new SecurityAuditService;
         $payload = [
             'source' => 'CajaBusqueda',
-            'data' => "1' OR '1'='1"
+            'data' => "1' OR '1'='1",
         ];
 
         $result = $service->analyzePayload($payload);
@@ -64,9 +64,9 @@ class ExampleTest extends TestCase
      */
     public function lanza_error_si_faltan_datos_obligatorios(): void
     {
-        $service = new SecurityAuditService();
+        $service = new SecurityAuditService;
         $this->expectException(InvalidArgumentException::class);
-        
+
         $service->analyzePayload([]);
     }
 }
