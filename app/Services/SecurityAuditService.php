@@ -7,9 +7,9 @@ use InvalidArgumentException;
 class SecurityAuditService
 {
     /**
-     * 
+     * Analiza un payload de entrada para detectar posibles riesgos de seguridad.
      *
-     * @param array<mixed> $payload
+     * @param array<string, mixed> $payload
      * @return array<string, mixed>
      */
     public function analyzePayload(array $payload): array
@@ -18,8 +18,7 @@ class SecurityAuditService
             throw new InvalidArgumentException('El payload debe contener "source" y "data".');
         }
 
-        // Forzamos la conversión estricta a strings para que PHPStan no dude del tipo
-        $source = (string) $payload['source'];
+        $source = is_string($payload['source']) ? $payload['source'] : 'Unknown';
         $dataToCheck = is_array($payload['data']) ? (string) json_encode($payload['data']) : (string) $payload['data'];
         
         $riskScore = 0;
@@ -49,7 +48,7 @@ class SecurityAuditService
             'risk_score' => $riskScore > 100 ? 100 : $riskScore,
             'status' => $status,
             'flags' => $flags,
-            'processed_at' => date('c'), 
+            'processed_at' => date('c'),
         ];
     }
 }

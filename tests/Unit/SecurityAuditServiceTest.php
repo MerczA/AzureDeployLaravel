@@ -21,8 +21,8 @@ class SecurityAuditServiceTest extends TestCase
 
         $result = $service->analyzePayload($payload);
 
-        $this->assertSame('safe', $result['status']);
-        $this->assertSame(0, $result['risk_score']);
+        $this->assertEquals('safe', $result['status']);
+        $this->assertEquals(0, $result['risk_score']);
     }
 
     /**
@@ -38,7 +38,7 @@ class SecurityAuditServiceTest extends TestCase
 
         $result = $service->analyzePayload($payload);
 
-        $this->assertSame('warning', $result['status']);
+        $this->assertEquals('warning', $result['status']);
         $this->assertContains('Posible intento de SQL Injection', $result['flags']);
     }
 
