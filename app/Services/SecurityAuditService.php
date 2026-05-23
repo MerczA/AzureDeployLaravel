@@ -44,11 +44,11 @@ class SecurityAuditService
         $sanitizedSource = htmlspecialchars(strip_tags($source), ENT_QUOTES, 'UTF-8');
 
         return [
-    'source' => $sanitizedSource,
-    'risk_score' => $riskScore, // <-- Cámbialo para que devuelva directamente la variable
-    'status' => $status,
-    'flags' => $flags,
-    'processed_at' => date('c'),
-];
+            'source' => $sanitizedSource,
+            'risk_score' => $riskScore, // <-- Cámbialo para que devuelva directamente la variable
+            'status' => $status,
+            'flags' => $flags,
+            'processed_at' => date('c'),
+        ];
     }
 }
