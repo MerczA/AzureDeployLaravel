@@ -53,7 +53,9 @@ jobs:
         with:
           name: php-app
 
+      # 🔑 Este paso SOLO se ejecuta si estás en la rama develop
       - name: Login to Azure
+        if: github.ref == 'refs/heads/develop'
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CFF0019D7EE84D65A1364FED6F6298A6 }}
@@ -61,6 +63,7 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3106D9AB0E044B5F853577A7A7598360 }}
           audience: api://AzureADTokenExchange
 
+      # 🚀 Despliega directamente el paquete (limpiando destino para evitar error 409)
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
