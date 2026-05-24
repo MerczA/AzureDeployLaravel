@@ -114,35 +114,35 @@ class OperationController extends Controller
     }
 
     // charly
-public function indexTemperatura(): View
-{
-    return view('temperatura.index');
-}
-
-public function convertirTemperatura(Request $request): View
-{
-    $request->validate([
-        'valor' => 'required|numeric',
-        'tipo' => 'required|in:c,f',
-    ]);
-
-    $valor = $request->input('valor');
-    $tipo = $request->input('tipo');
-
-    if ($tipo === 'c') {
-        $resultado = ($valor * 9 / 5) + 32;
-        $mensaje = "$valor °C equivalen a ".round($resultado, 2)." °F";
-    } else {
-        $resultado = ($valor - 32) * 5 / 9;
-        $mensaje = "$valor °F equivalen a ".round($resultado, 2)." °C";
+    public function indexTemperatura(): View
+    {
+        return view('temperatura.index');
     }
 
-    return view('temperatura.index', [
-        'valor' => $valor,
-        'resultado' => round($resultado, 2),
-        'mensaje' => $mensaje,
-        'convertido' => true,
-    ]);
-}
+    public function convertirTemperatura(Request $request): View
+    {
+        $request->validate([
+            'valor' => 'required|numeric',
+            'tipo' => 'required|in:c,f',
+        ]);
+
+        $valor = $request->input('valor');
+        $tipo = $request->input('tipo');
+
+        if ($tipo === 'c') {
+            $resultado = ($valor * 9 / 5) + 32;
+            $mensaje = "$valor °C equivalen a ".round($resultado, 2).' °F';
+        } else {
+            $resultado = ($valor - 32) * 5 / 9;
+            $mensaje = "$valor °F equivalen a ".round($resultado, 2).' °C';
+        }
+
+        return view('temperatura.index', [
+            'valor' => $valor,
+            'resultado' => round($resultado, 2),
+            'mensaje' => $mensaje,
+            'convertido' => true,
+        ]);
+    }
     // Aquí pueden agregar más funciones para otras operaciones (X)
 }

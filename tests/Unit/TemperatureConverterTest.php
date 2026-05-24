@@ -9,7 +9,7 @@ class TemperatureConverterTest extends TestCase
 {
     public function test_celsius_a_fahrenheit(): void
     {
-        $controller = new OperationController();
+        $controller = new OperationController;
 
         $resultado = (20 * 9 / 5) + 32;
 
@@ -18,7 +18,7 @@ class TemperatureConverterTest extends TestCase
 
     public function test_fahrenheit_a_celsius(): void
     {
-        $controller = new OperationController();
+        $controller = new OperationController;
 
         $resultado = (68 - 32) * 5 / 9;
 
