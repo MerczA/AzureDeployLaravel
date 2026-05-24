@@ -88,5 +88,30 @@ class OperationController extends Controller
         return view('validador.index');
     }
 
+    // rafa
+    public function indexParImpar(): View
+    {
+        return view('parimpar.index');
+    }
+
+    public function verificarParImpar(Request $request): View
+    {
+        $request->validate([
+            'numero' => 'required|integer',
+        ]);
+
+        $numero = $request->input('numero');
+
+        $resultado = $numero % 2 == 0
+            ? 'El número es par'
+            : 'El número es impar';
+
+        return view('parimpar.index', [
+            'numero' => $numero,
+            'resultado' => $resultado,
+            'verificado' => true,
+        ]);
+    }
+
     // Aquí pueden agregar más funciones para otras operaciones (X)
 }
