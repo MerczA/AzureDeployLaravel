@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class RafaelController extends Controller
 {
-    // Esta es la función que recibe parámetros y retorna un resultado procesado
-    public function calcularAreaTriangulo($base, $altura)
+    // Agregamos float para los números y : string para el texto de retorno
+    public function calcularAreaTriangulo(float $base, float $altura): string
     {
         if ($base <= 0 || $altura <= 0) {
             return "Los valores deben ser mayores a cero";
