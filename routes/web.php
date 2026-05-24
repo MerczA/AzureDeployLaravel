@@ -30,7 +30,9 @@ Route::post('/validador', [OperationController::class, 'validar'])->name('valida
 
 /*
 |--------------------------------------------------------------------------
-| X
+| Rafa
 |--------------------------------------------------------------------------
 */
+Route::get('/par-impar', [OperationController::class, 'indexParImpar']);
+Route::post('/par-impar', [OperationController::class, 'verificarParImpar']);
 // RUTAS SIGUIENTES AQUÍ
