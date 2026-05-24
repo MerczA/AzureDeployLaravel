@@ -12,7 +12,7 @@ class ValidadorLuhnTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->controller = new OperationController();
+        $this->controller = new OperationController;
     }
 
     public function test_tarjeta_visa_valida(): void
