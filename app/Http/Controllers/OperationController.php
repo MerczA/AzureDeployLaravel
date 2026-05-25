@@ -144,6 +144,7 @@ class OperationController extends Controller
             'convertido' => true,
         ]);
     }
+
     // Aquí pueden agregar más funciones para otras operaciones (X)
     // Función para auditar la seguridad de un payload (SERGIO)
     public function analyzePayload(string $source, string $data): array
