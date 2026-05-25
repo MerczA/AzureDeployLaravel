@@ -98,6 +98,9 @@
 
         .card.parimpar a { background: #22c55e; }
         .card.parimpar a:hover { background: #16a34a; }
+
+        .card.temperatura a { background: #ef4444; }
+        .card.temperatura a:hover { background: #dc2626; }
     </style>
 </head>
 <body>
@@ -134,6 +137,15 @@
             <p>Determina si un número ingresado es par o impar.</p>
             <span class="autor">Rafa</span>
             <a href="/par-impar">Ir a la operación →</a>
+        </div>
+
+        {{-- Charly --}}
+        <div class="card temperatura">
+            <div class="icono">🌡️</div>
+            <h2>Convertidor de Temperatura</h2>
+            <p>Convierte temperaturas entre grados Celsius y Fahrenheit de manera rápida.</p>
+            <span class="autor">Charly</span>
+            <a href="/temperatura">Ir a la operación →</a>
         </div>
 
     </div>
