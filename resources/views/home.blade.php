@@ -101,6 +101,9 @@
 
         .card.temperatura a { background: #ef4444; }
         .card.temperatura a:hover { background: #dc2626; }
+
+        .card.palindromo a { background: #667eea; }
+        .card.palindromo a:hover { background: #5568d3; }
     </style>
 </head>
 <body>
@@ -146,6 +149,15 @@
             <p>Convierte temperaturas entre grados Celsius y Fahrenheit de manera rápida.</p>
             <span class="autor">Charly</span>
             <a href="/temperatura">Ir a la operación →</a>
+        </div>
+
+        {{-- Verificador de Palindromo --}}
+        <div class="card palindromo">
+            <div class="icono">🔄</div>
+            <h2>Verificador de Palindromo</h2>
+            <p>Verifica si una palabra o frase es un palindromo. Ignora espacios, acentos y puntuación.</p>
+            <span class="autor">Sistema</span>
+            <a href="{{ route('palindromo.index') }}">Ir a la operación →</a>
         </div>
 
     </div>
