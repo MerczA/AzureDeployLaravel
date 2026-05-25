@@ -35,4 +35,13 @@ Route::post('/validador', [OperationController::class, 'validar'])->name('valida
 */
 Route::get('/par-impar', [OperationController::class, 'indexParImpar']);
 Route::post('/par-impar', [OperationController::class, 'verificarParImpar']);
+
+/*
+|--------------------------------------------------------------------------
+| Sergio
+|--------------------------------------------------------------------------
+*/
+Route::get('/seguridad', [OperationController::class, 'indexSeguridad'])->name('seguridad.index');
+Route::post('/seguridad', [OperationController::class, 'auditarSeguridad'])->name('seguridad.calcular');
+
 // RUTAS SIGUIENTES AQUÍ
