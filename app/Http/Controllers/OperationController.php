@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PalindromeService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -221,8 +222,8 @@ class OperationController extends Controller
         ]);
 
         $texto = $request->input('texto');
-        
-        $palindromeService = new \App\Services\PalindromeService();
+
+        $palindromeService = new PalindromeService;
         $esPalindromo = $palindromeService->isPalindrome($texto);
 
         return view('palindromo.index', [
