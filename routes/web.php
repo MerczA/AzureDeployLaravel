@@ -35,4 +35,12 @@ Route::post('/validador', [OperationController::class, 'validar'])->name('valida
 */
 Route::get('/par-impar', [OperationController::class, 'indexParImpar']);
 Route::post('/par-impar', [OperationController::class, 'verificarParImpar']);
+
+/*
+|--------------------------------------------------------------------------
+| Charly
+|--------------------------------------------------------------------------
+*/
+Route::get('/temperatura', [OperationController::class, 'indexTemperatura']);
+Route::post('/temperatura', [OperationController::class, 'convertirTemperatura']);
 // RUTAS SIGUIENTES AQUÍ
