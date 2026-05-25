@@ -144,5 +144,67 @@ class OperationController extends Controller
             'convertido' => true,
         ]);
     }
+
     // Aquí pueden agregar más funciones para otras operaciones (X)
+    // Función para auditar la seguridad de un payload (SERGIO)
+    public function analyzePayload(string $source, string $data): array
+    {
+        $riskScore = 0;
+        $flags = [];
+
+        if (preg_match('/(<script|javascript:|onerror=)/i', $data)) {
+            $riskScore += 50;
+            $flags[] = 'Posible intento de XSS (Cross-Site Scripting)';
+        }
+
+        if (preg_match('/(UNION SELECT|SELECT.*FROM|OR 1=1|--)/i', $data)) {
+            $riskScore += 50;
+            $flags[] = 'Posible intento de SQL Injection';
+        }
+
+        $status = 'safe';
+        if ($riskScore >= 100) {
+            $status = 'critical';
+        } elseif ($riskScore >= 50) {
+            $status = 'warning';
+        }
+
+        $sanitizedSource = htmlspecialchars(strip_tags($source), ENT_QUOTES, 'UTF-8');
+
+        return [
+            'source' => $sanitizedSource,
+            'risk_score' => $riskScore,
+            'status' => $status,
+            'flags' => $flags,
+            'processed_at' => date('c'),
+        ];
+    }
+
+    public function indexSeguridad(): \Illuminate\Contracts\View\View
+    {
+        return \Illuminate\Support\Facades\View::make('seguridad.index');
+    }
+
+    public function auditarSeguridad(Request $request): \Illuminate\Contracts\View\View
+    {
+        $request->validate([
+            'origen' => 'required|string|max:255',
+            'datos' => 'required|string',
+        ]);
+
+        $origen = $request->input('origen');
+        $datos = $request->input('datos');
+
+        $resultado = $this->analyzePayload($origen, $datos);
+
+        return \Illuminate\Support\Facades\View::make('seguridad.index', [
+            'origen' => $resultado['source'],
+            'datos' => $datos,
+            'risk_score' => $resultado['risk_score'],
+            'status' => $resultado['status'],
+            'flags' => $resultado['flags'],
+            'processed_at' => $resultado['processed_at'],
+            'calculado' => true,
+        ]);
+    }
 }

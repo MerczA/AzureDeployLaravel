@@ -43,4 +43,8 @@ Route::post('/par-impar', [OperationController::class, 'verificarParImpar']);
 */
 Route::get('/temperatura', [OperationController::class, 'indexTemperatura']);
 Route::post('/temperatura', [OperationController::class, 'convertirTemperatura']);
+
+Route::get('/seguridad', [OperationController::class, 'indexSeguridad'])->name('seguridad.index');
+Route::post('/seguridad', [OperationController::class, 'auditarSeguridad'])->name('seguridad.calcular');
+
 // RUTAS SIGUIENTES AQUÍ
