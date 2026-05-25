@@ -207,4 +207,28 @@ class OperationController extends Controller
             'calculado' => true,
         ]);
     }
+
+    // Palindromo
+    public function indexPalindromo(): View
+    {
+        return view('palindromo.index');
+    }
+
+    public function verificarPalindromo(Request $request): View
+    {
+        $request->validate([
+            'texto' => 'required|string|max:500',
+        ]);
+
+        $texto = $request->input('texto');
+        
+        $palindromeService = new \App\Services\PalindromeService();
+        $esPalindromo = $palindromeService->isPalindrome($texto);
+
+        return view('palindromo.index', [
+            'texto' => $texto,
+            'esPalindromo' => $esPalindromo,
+            'verificado' => true,
+        ]);
+    }
 }

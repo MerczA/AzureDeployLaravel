@@ -47,4 +47,12 @@ Route::post('/temperatura', [OperationController::class, 'convertirTemperatura']
 Route::get('/seguridad', [OperationController::class, 'indexSeguridad'])->name('seguridad.index');
 Route::post('/seguridad', [OperationController::class, 'auditarSeguridad'])->name('seguridad.calcular');
 
+/*
+|--------------------------------------------------------------------------
+| Palindromo
+|--------------------------------------------------------------------------
+*/
+Route::get('/palindromo', [OperationController::class, 'indexPalindromo'])->name('palindromo.index');
+Route::post('/palindromo', [OperationController::class, 'verificarPalindromo'])->name('palindromo.verificar');
+
 // RUTAS SIGUIENTES AQUÍ
