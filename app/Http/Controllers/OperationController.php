@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PalindromeService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -205,6 +206,30 @@ class OperationController extends Controller
             'flags' => $resultado['flags'],
             'processed_at' => $resultado['processed_at'],
             'calculado' => true,
+        ]);
+    }
+
+    // Palindromo
+    public function indexPalindromo(): View
+    {
+        return view('palindromo.index');
+    }
+
+    public function verificarPalindromo(Request $request): View
+    {
+        $request->validate([
+            'texto' => 'required|string|max:500',
+        ]);
+
+        $texto = $request->input('texto');
+
+        $palindromeService = new PalindromeService;
+        $esPalindromo = $palindromeService->isPalindrome($texto);
+
+        return view('palindromo.index', [
+            'texto' => $texto,
+            'esPalindromo' => $esPalindromo,
+            'verificado' => true,
         ]);
     }
 }
