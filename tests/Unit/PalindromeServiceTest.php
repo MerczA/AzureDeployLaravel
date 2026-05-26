@@ -18,7 +18,7 @@ class PalindromeServiceTest extends TestCase
 
     public function test_palabra_palindroma(): void
     {
-        $this->assertTrue($this->service->isPalindrome(''));
+        $this->assertTrue($this->service->isPalindrome('oso'));
     }
 
     public function test_palabra_no_palindroma(): void
